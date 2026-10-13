@@ -1,0 +1,16 @@
+// The .proto file that NOBODY wrote: equivalent of the descriptor the server
+// built at runtime for GetSchema("sales-db", "orders"). For reading only — it is never compiled.
+
+syntax = "proto3";
+
+package dataconnector.dynamic.sales_db;
+
+message Orders {
+  optional int64  order_id    = 1;
+  optional int64  customer_id = 2;
+  optional int64  region_id   = 3;
+  optional string order_date  = 4;
+  optional double amount      = 5;
+  optional bool   is_shipped  = 6;
+  optional string coupon_code = 7;
+}

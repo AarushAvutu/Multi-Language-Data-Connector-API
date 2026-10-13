@@ -1,0 +1,7 @@
+ticket_id,customer_id,subject,priority,hours_open,resolved
+101,1,"Login fails, error 401",high,5,true
+102,4,Billing question,low,30,true
+103,3,Export to CSV is slow,medium,72,false
+104,8,Cannot reset password,high,2,true
+105,5,"Feature request: dark mode",low,240,false
+106,1,API rate limit reached,medium,12,true

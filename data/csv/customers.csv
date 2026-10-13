@@ -1,0 +1,11 @@
+customer_id,name,email,country,signup_year,lifetime_value,is_active
+1,Ava Johnson,ava.johnson@example.com,USA,2019,1520.75,true
+2,Liam Chen,liam.chen@example.com,Canada,2020,980.00,true
+3,Sofia Garcia,sofia.garcia@example.com,Mexico,2018,2310.40,false
+4,Noah Patel,noah.patel@example.com,USA,2021,450.25,true
+5,Emma Müller,emma.mueller@example.com,Germany,2017,3120.00,true
+6,"Lucas O'Brien",lucas.obrien@example.com,Ireland,2022,,true
+7,Mia Rossi,mia.rossi@example.com,Italy,2020,1275.10,false
+8,Ethan Kim,ethan.kim@example.com,USA,2023,210.00,true
+9,Olivia Brown,,UK,2019,1899.99,true
+10,Arjun Reddy,arjun.reddy@example.com,India,2021,760.60,true

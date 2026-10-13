@@ -1,0 +1,96 @@
+# FileDescriptorSet returned by GetSchema(connector_id="crm-files", dataset="customers")
+# Built at runtime by DynamicSchemaBuilder — this is exactly what the client receives (as bytes).
+# message_type: dataconnector.dynamic.crm_files.Customers
+
+file {
+  name: "dynamic/crm_files/customers.proto"
+  package: "dataconnector.dynamic.crm_files"
+  message_type {
+    name: "Customers"
+    field {
+      name: "customer_id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_INT64
+      oneof_index: 0
+      json_name: "customer_id"
+      proto3_optional: true
+    }
+    field {
+      name: "name"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      oneof_index: 1
+      json_name: "name"
+      proto3_optional: true
+    }
+    field {
+      name: "email"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      oneof_index: 2
+      json_name: "email"
+      proto3_optional: true
+    }
+    field {
+      name: "country"
+      number: 4
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      oneof_index: 3
+      json_name: "country"
+      proto3_optional: true
+    }
+    field {
+      name: "signup_year"
+      number: 5
+      label: LABEL_OPTIONAL
+      type: TYPE_INT64
+      oneof_index: 4
+      json_name: "signup_year"
+      proto3_optional: true
+    }
+    field {
+      name: "lifetime_value"
+      number: 6
+      label: LABEL_OPTIONAL
+      type: TYPE_DOUBLE
+      oneof_index: 5
+      json_name: "lifetime_value"
+      proto3_optional: true
+    }
+    field {
+      name: "is_active"
+      number: 7
+      label: LABEL_OPTIONAL
+      type: TYPE_BOOL
+      oneof_index: 6
+      json_name: "is_active"
+      proto3_optional: true
+    }
+    oneof_decl {
+      name: "_customer_id"
+    }
+    oneof_decl {
+      name: "_name"
+    }
+    oneof_decl {
+      name: "_email"
+    }
+    oneof_decl {
+      name: "_country"
+    }
+    oneof_decl {
+      name: "_signup_year"
+    }
+    oneof_decl {
+      name: "_lifetime_value"
+    }
+    oneof_decl {
+      name: "_is_active"
+    }
+  }
+  syntax: "proto3"
+}

@@ -1,0 +1,146 @@
+// =============================================================================
+//  Multi-Language Data Connector API
+// =============================================================================
+//
+//  This file is the CONTRACT between the server and every client.
+//
+//  Think of it like a restaurant menu: it lists every "dish" (RPC method) you
+//  can order, and exactly what you must give (request message) and what you
+//  will get back (response message). The `protoc` compiler turns this one file
+//  into ready-made code for Java, Python, Go, C#, Node.js, etc. That is how a
+//  Python program and a Java program can talk to each other without anyone
+//  hand-writing networking code.
+//
+//  KEY IDEA: the *shape* of the data inside each connector (columns of a CSV,
+//  columns of a SQL table, fields of a JSON file) is NOT known when this file
+//  is compiled. So rows are sent as `google.protobuf.Any` and the server also
+//  sends a *Protobuf descriptor* (a machine-readable schema) that clients use
+//  to decode those rows at runtime. See GetSchema below.
+// =============================================================================
+
+syntax = "proto3";
+
+package dataconnector.v1;
+
+import "google/protobuf/any.proto";
+import "google/protobuf/descriptor.proto";
+
+option java_multiple_files = true;
+option java_package = "com.example.dataconnector.v1";
+option java_outer_classname = "DataConnectorProto";
+
+// The one API every consumer uses, no matter where the data really lives.
+service DataConnectorService {
+  // Which data sources (connectors) does this server know about?
+  rpc ListConnectors(ListConnectorsRequest) returns (ListConnectorsResponse);
+
+  // Which datasets (tables / files) does one connector expose?
+  rpc ListDatasets(ListDatasetsRequest) returns (ListDatasetsResponse);
+
+  // Describe a dataset's columns AND hand back a Protobuf descriptor that a
+  // client in any language can load at runtime to decode rows.
+  rpc GetSchema(GetSchemaRequest) returns (GetSchemaResponse);
+
+  // Stream rows from a dataset. Server-streaming: the server sends many
+  // DataRecord messages, one per row, over a single call.
+  rpc ReadData(ReadDataRequest) returns (stream DataRecord);
+}
+
+// ----------------------------------------------------------------- connectors
+
+message ListConnectorsRequest {}
+
+message ListConnectorsResponse {
+  repeated ConnectorInfo connectors = 1;
+}
+
+message ConnectorInfo {
+  string id = 1;           // e.g. "sales-db"
+  string type = 2;         // e.g. "jdbc", "csv", "json"
+  string description = 3;  // human friendly text
+}
+
+// ------------------------------------------------------------------- datasets
+
+message ListDatasetsRequest {
+  string connector_id = 1;
+}
+
+message ListDatasetsResponse {
+  repeated DatasetInfo datasets = 1;
+}
+
+message DatasetInfo {
+  string connector_id = 1;
+  string name = 2;  // e.g. "customers"
+}
+
+// --------------------------------------------------------------------- schema
+
+message GetSchemaRequest {
+  string connector_id = 1;
+  string dataset = 2;
+}
+
+message GetSchemaResponse {
+  // Fully qualified name of the row message inside `descriptor_set`,
+  // e.g. "dataconnector.dynamic.sales_db.Customers".
+  string message_type = 1;
+
+  // The runtime-generated schema. Clients feed this into their language's
+  // DescriptorPool / FileDescriptor.buildFrom(...) to get a message class.
+  google.protobuf.FileDescriptorSet descriptor_set = 2;
+
+  // Same information in a simple, human readable form.
+  repeated FieldInfo fields = 3;
+}
+
+message FieldInfo {
+  string name = 1;
+  int32 number = 2;      // protobuf field number
+  ColumnType type = 3;
+  bool nullable = 4;
+}
+
+enum ColumnType {
+  COLUMN_TYPE_UNSPECIFIED = 0;
+  COLUMN_TYPE_STRING = 1;
+  COLUMN_TYPE_INT64 = 2;
+  COLUMN_TYPE_DOUBLE = 3;
+  COLUMN_TYPE_BOOL = 4;
+}
+
+// ----------------------------------------------------------------------- read
+
+message ReadDataRequest {
+  string connector_id = 1;
+  string dataset = 2;
+  // Optional projection: only these columns are filled in. Empty = all.
+  repeated string columns = 3;
+  // Optional row filters, combined with AND.
+  repeated Filter filters = 4;
+  // Max rows to return. 0 = no limit.
+  int32 limit = 5;
+}
+
+message Filter {
+  string column = 1;
+  Operator op = 2;
+  string value = 3;  // compared after converting to the column's type
+
+  enum Operator {
+    OPERATOR_UNSPECIFIED = 0;
+    EQUALS = 1;
+    NOT_EQUALS = 2;
+    GREATER_THAN = 3;
+    LESS_THAN = 4;
+    CONTAINS = 5;  // strings only
+  }
+}
+
+message DataRecord {
+  int64 row_number = 1;
+  // The actual row. Its type_url names the message in GetSchemaResponse,
+  // e.g. "type.googleapis.com/dataconnector.dynamic.sales_db.Customers".
+  google.protobuf.Any payload = 2;
+}

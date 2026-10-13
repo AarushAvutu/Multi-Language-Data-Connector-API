@@ -1,0 +1,19 @@
+[
+  {
+    "id": "sales-db",
+    "type": "jdbc",
+    "url": "jdbc:h2:mem:sales;DB_CLOSE_DELAY=-1",
+    "schema": "PUBLIC",
+    "initScript": "data/sql/seed.sql"
+  },
+  {
+    "id": "crm-files",
+    "type": "csv",
+    "path": "data/csv"
+  },
+  {
+    "id": "product-catalog",
+    "type": "json",
+    "path": "data/json"
+  }
+]

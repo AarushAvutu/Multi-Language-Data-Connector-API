@@ -1,0 +1,319 @@
+file {
+  name: "dataconnector/v1/data_connector.proto"
+  package: "dataconnector.v1"
+  dependency: "google/protobuf/any.proto"
+  dependency: "google/protobuf/descriptor.proto"
+  message_type {
+    name: "ListConnectorsRequest"
+  }
+  message_type {
+    name: "ListConnectorsResponse"
+    field {
+      name: "connectors"
+      number: 1
+      label: LABEL_REPEATED
+      type: TYPE_MESSAGE
+      type_name: ".dataconnector.v1.ConnectorInfo"
+      json_name: "connectors"
+    }
+  }
+  message_type {
+    name: "ConnectorInfo"
+    field {
+      name: "id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "id"
+    }
+    field {
+      name: "type"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "type"
+    }
+    field {
+      name: "description"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "description"
+    }
+  }
+  message_type {
+    name: "ListDatasetsRequest"
+    field {
+      name: "connector_id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "connectorId"
+    }
+  }
+  message_type {
+    name: "ListDatasetsResponse"
+    field {
+      name: "datasets"
+      number: 1
+      label: LABEL_REPEATED
+      type: TYPE_MESSAGE
+      type_name: ".dataconnector.v1.DatasetInfo"
+      json_name: "datasets"
+    }
+  }
+  message_type {
+    name: "DatasetInfo"
+    field {
+      name: "connector_id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "connectorId"
+    }
+    field {
+      name: "name"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "name"
+    }
+  }
+  message_type {
+    name: "GetSchemaRequest"
+    field {
+      name: "connector_id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "connectorId"
+    }
+    field {
+      name: "dataset"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "dataset"
+    }
+  }
+  message_type {
+    name: "GetSchemaResponse"
+    field {
+      name: "message_type"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "messageType"
+    }
+    field {
+      name: "descriptor_set"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_MESSAGE
+      type_name: ".google.protobuf.FileDescriptorSet"
+      json_name: "descriptorSet"
+    }
+    field {
+      name: "fields"
+      number: 3
+      label: LABEL_REPEATED
+      type: TYPE_MESSAGE
+      type_name: ".dataconnector.v1.FieldInfo"
+      json_name: "fields"
+    }
+  }
+  message_type {
+    name: "FieldInfo"
+    field {
+      name: "name"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "name"
+    }
+    field {
+      name: "number"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_INT32
+      json_name: "number"
+    }
+    field {
+      name: "type"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".dataconnector.v1.ColumnType"
+      json_name: "type"
+    }
+    field {
+      name: "nullable"
+      number: 4
+      label: LABEL_OPTIONAL
+      type: TYPE_BOOL
+      json_name: "nullable"
+    }
+  }
+  message_type {
+    name: "ReadDataRequest"
+    field {
+      name: "connector_id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "connectorId"
+    }
+    field {
+      name: "dataset"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "dataset"
+    }
+    field {
+      name: "columns"
+      number: 3
+      label: LABEL_REPEATED
+      type: TYPE_STRING
+      json_name: "columns"
+    }
+    field {
+      name: "filters"
+      number: 4
+      label: LABEL_REPEATED
+      type: TYPE_MESSAGE
+      type_name: ".dataconnector.v1.Filter"
+      json_name: "filters"
+    }
+    field {
+      name: "limit"
+      number: 5
+      label: LABEL_OPTIONAL
+      type: TYPE_INT32
+      json_name: "limit"
+    }
+  }
+  message_type {
+    name: "Filter"
+    field {
+      name: "column"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "column"
+    }
+    field {
+      name: "op"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_ENUM
+      type_name: ".dataconnector.v1.Filter.Operator"
+      json_name: "op"
+    }
+    field {
+      name: "value"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      json_name: "value"
+    }
+    enum_type {
+      name: "Operator"
+      value {
+        name: "OPERATOR_UNSPECIFIED"
+        number: 0
+      }
+      value {
+        name: "EQUALS"
+        number: 1
+      }
+      value {
+        name: "NOT_EQUALS"
+        number: 2
+      }
+      value {
+        name: "GREATER_THAN"
+        number: 3
+      }
+      value {
+        name: "LESS_THAN"
+        number: 4
+      }
+      value {
+        name: "CONTAINS"
+        number: 5
+      }
+    }
+  }
+  message_type {
+    name: "DataRecord"
+    field {
+      name: "row_number"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_INT64
+      json_name: "rowNumber"
+    }
+    field {
+      name: "payload"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_MESSAGE
+      type_name: ".google.protobuf.Any"
+      json_name: "payload"
+    }
+  }
+  enum_type {
+    name: "ColumnType"
+    value {
+      name: "COLUMN_TYPE_UNSPECIFIED"
+      number: 0
+    }
+    value {
+      name: "COLUMN_TYPE_STRING"
+      number: 1
+    }
+    value {
+      name: "COLUMN_TYPE_INT64"
+      number: 2
+    }
+    value {
+      name: "COLUMN_TYPE_DOUBLE"
+      number: 3
+    }
+    value {
+      name: "COLUMN_TYPE_BOOL"
+      number: 4
+    }
+  }
+  service {
+    name: "DataConnectorService"
+    method {
+      name: "ListConnectors"
+      input_type: ".dataconnector.v1.ListConnectorsRequest"
+      output_type: ".dataconnector.v1.ListConnectorsResponse"
+    }
+    method {
+      name: "ListDatasets"
+      input_type: ".dataconnector.v1.ListDatasetsRequest"
+      output_type: ".dataconnector.v1.ListDatasetsResponse"
+    }
+    method {
+      name: "GetSchema"
+      input_type: ".dataconnector.v1.GetSchemaRequest"
+      output_type: ".dataconnector.v1.GetSchemaResponse"
+    }
+    method {
+      name: "ReadData"
+      input_type: ".dataconnector.v1.ReadDataRequest"
+      output_type: ".dataconnector.v1.DataRecord"
+      server_streaming: true
+    }
+  }
+  options {
+    java_package: "com.example.dataconnector.v1"
+    java_outer_classname: "DataConnectorProto"
+    java_multiple_files: true
+  }
+  syntax: "proto3"
+}

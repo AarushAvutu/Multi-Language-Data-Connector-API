@@ -1,0 +1,96 @@
+# FileDescriptorSet returned by GetSchema(connector_id="sales-db", dataset="orders")
+# Built at runtime by DynamicSchemaBuilder — this is exactly what the client receives (as bytes).
+# message_type: dataconnector.dynamic.sales_db.Orders
+
+file {
+  name: "dynamic/sales_db/orders.proto"
+  package: "dataconnector.dynamic.sales_db"
+  message_type {
+    name: "Orders"
+    field {
+      name: "order_id"
+      number: 1
+      label: LABEL_OPTIONAL
+      type: TYPE_INT64
+      oneof_index: 0
+      json_name: "order_id"
+      proto3_optional: true
+    }
+    field {
+      name: "customer_id"
+      number: 2
+      label: LABEL_OPTIONAL
+      type: TYPE_INT64
+      oneof_index: 1
+      json_name: "customer_id"
+      proto3_optional: true
+    }
+    field {
+      name: "region_id"
+      number: 3
+      label: LABEL_OPTIONAL
+      type: TYPE_INT64
+      oneof_index: 2
+      json_name: "region_id"
+      proto3_optional: true
+    }
+    field {
+      name: "order_date"
+      number: 4
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      oneof_index: 3
+      json_name: "order_date"
+      proto3_optional: true
+    }
+    field {
+      name: "amount"
+      number: 5
+      label: LABEL_OPTIONAL
+      type: TYPE_DOUBLE
+      oneof_index: 4
+      json_name: "amount"
+      proto3_optional: true
+    }
+    field {
+      name: "is_shipped"
+      number: 6
+      label: LABEL_OPTIONAL
+      type: TYPE_BOOL
+      oneof_index: 5
+      json_name: "is_shipped"
+      proto3_optional: true
+    }
+    field {
+      name: "coupon_code"
+      number: 7
+      label: LABEL_OPTIONAL
+      type: TYPE_STRING
+      oneof_index: 6
+      json_name: "coupon_code"
+      proto3_optional: true
+    }
+    oneof_decl {
+      name: "_order_id"
+    }
+    oneof_decl {
+      name: "_customer_id"
+    }
+    oneof_decl {
+      name: "_region_id"
+    }
+    oneof_decl {
+      name: "_order_date"
+    }
+    oneof_decl {
+      name: "_amount"
+    }
+    oneof_decl {
+      name: "_is_shipped"
+    }
+    oneof_decl {
+      name: "_coupon_code"
+    }
+  }
+  syntax: "proto3"
+}

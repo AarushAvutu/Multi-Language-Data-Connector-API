@@ -1,0 +1,8 @@
+[
+  {"sku": "LAP-001", "name": "Student Laptop 14\"", "category": "computers", "price": 649.99, "in_stock": true,  "stock_qty": 42, "tags": ["school", "portable"]},
+  {"sku": "LAP-002", "name": "Pro Laptop 16\"",     "category": "computers", "price": 1899.00, "in_stock": true,  "stock_qty": 7,  "tags": ["pro"]},
+  {"sku": "MON-010", "name": "27\" 4K Monitor",     "category": "displays",  "price": 329.50, "in_stock": false, "stock_qty": 0,  "tags": []},
+  {"sku": "KEY-100", "name": "Mechanical Keyboard", "category": "accessories","price": 89.95, "in_stock": true,  "stock_qty": 120, "tags": ["gaming"]},
+  {"sku": "MOU-200", "name": "Wireless Mouse",      "category": "accessories","price": 24.99, "in_stock": true,  "stock_qty": 300},
+  {"sku": "HDP-300", "name": "Noise-Cancelling Headphones", "category": "audio", "price": 249.00, "in_stock": true, "stock_qty": 18, "tags": ["travel", "music"], "discontinued": null}
+]
